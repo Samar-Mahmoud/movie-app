@@ -31,7 +31,7 @@ export const SignIn = () => {
       });
       if (response.status === 201) {
         localStorage.setItem("user-token", response.data.access_token);
-        navigate("../../favorites");
+        navigate("/favorites", { replace: true });
       }
     } catch (error: any) {
       setError(error.response?.data?.message || "Login failed");
@@ -77,7 +77,7 @@ export const SignIn = () => {
         </button>
         <button
           className="w-full bg-white-500 text-blue-500 py-2 rounded mt-3"
-          onClick={() => navigate("../../auth/signup")}
+          onClick={() => navigate("/auth/signup", { replace: true })}
         >
           Sign Up
         </button>

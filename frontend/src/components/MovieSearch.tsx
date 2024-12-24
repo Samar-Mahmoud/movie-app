@@ -63,7 +63,7 @@ const MovieSearch = () => {
 
   const handleFavoriteClick = async (movie: Movie) => {
     if (!user) {
-      navigate("../auth/signin");
+      navigate("/auth/signin", { replace: true });
     }
     try {
       const token = localStorage.getItem("user-token");

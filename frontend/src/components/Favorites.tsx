@@ -19,7 +19,7 @@ const Favorites = () => {
   useEffect(() => {
     const user = localStorage.getItem("current-user");
     if (!user) {
-      navigate("auth/login");
+      navigate("auth/login", { replace: true });
       return;
     }
     const token = localStorage.getItem("user-token");
