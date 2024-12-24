@@ -34,7 +34,7 @@ Create a .env file in the backend directory and add variables provided in `.env.
 In the backend directory, run:
 
 ```bash
-npx prisma migrate deploy
+npx prisma migrate dev
 ```
 
 5. Start the Backend Server:
