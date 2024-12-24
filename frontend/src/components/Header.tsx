@@ -34,7 +34,7 @@ const Header: React.FC = () => {
   const handleLogout = () => {
     localStorage.removeItem("user-token");
     setUser(null);
-    navigate("auth/signin");
+    navigate("/auth/signin", { replace: true });
   };
 
   return (

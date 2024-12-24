@@ -43,15 +43,15 @@ const Favorites = () => {
 
   const handleDelete = async (movieId: string) => {
     try {
-      const token = localStorage.getItem('user-token');
+      const token = localStorage.getItem("user-token");
       await fetch.delete(`/favorites/${movieId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setMovies(movies.filter(movie => movie.id !== movieId));
+      setMovies(movies.filter((movie) => movie.id !== movieId));
     } catch (error) {
-      console.error('Error deleting movie:', error);
+      console.error("Error deleting movie:", error);
     }
   };
 
@@ -62,20 +62,23 @@ const Favorites = () => {
 
   const handleSave = async (updatedMovie: Movie) => {
     try {
-      const token = localStorage.getItem('user-token');
+      const token = localStorage.getItem("user-token");
       await fetch.patch(`/favorites/${updatedMovie.id}`, updatedMovie, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setMovies(movies.map(movie => (movie.id === updatedMovie.id ? updatedMovie : movie)));
+      setMovies(
+        movies.map((movie) =>
+          movie.id === updatedMovie.id ? updatedMovie : movie
+        )
+      );
       setIsEditing(false);
       setEditMovie(null);
     } catch (error) {
-      console.error('Error saving movie:', error);
+      console.error("Error saving movie:", error);
     }
   };
-
 
   return (
     <div className="p-4">
@@ -110,36 +113,44 @@ const Favorites = () => {
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {movies.map((movie: Movie) => (
-            <div
-              key={movie.id}
-              className="bg-gray-800 text-white p-4 rounded shadow-lg"
-            >
-              <img
-                src={movie.posterUrl ?? "/placeholder.png"}
-                alt={movie.title}
-                className="w-full h-48 object-cover rounded mb-4"
-              />
-              <h3 className="text-xl mb-2">{movie.title}</h3>
-              <p className="mb-2">Year: {movie.year}</p>
-              <div className="flex space-x-4">
-                <button
-                  onClick={() => handleEdit(movie)}
-                  className="bg-yellow-500 text-white px-4 py-2 rounded"
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() => handleDelete(movie.id)}
-                  className="bg-red-500 text-white px-4 py-2 rounded"
-                >
-                  Delete
-                </button>
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {movies.map((movie: Movie) => (
+              <div
+                key={movie.id}
+                className="bg-gray-800 text-white p-4 rounded shadow-lg"
+              >
+                <img
+                  src={movie.posterUrl ?? "/placeholder.png"}
+                  alt={movie.title}
+                  className="w-full h-48 object-cover rounded mb-4"
+                />
+                <h3 className="text-xl mb-2">{movie.title}</h3>
+                <p className="mb-2">Year: {movie.year}</p>
+                <div className="flex space-x-4">
+                  <button
+                    onClick={() => handleEdit(movie)}
+                    className="bg-yellow-500 text-white px-4 py-2 rounded"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(movie.id)}
+                    className="bg-red-500 text-white px-4 py-2 rounded"
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+          <button
+            onClick={() => navigate("/search", { replace: true })}
+            className="bg-red-500 text-white px-4 py-2 rounded mt-5"
+          >
+            Find Movies
+          </button>
+        </>
       )}
     </div>
   );
