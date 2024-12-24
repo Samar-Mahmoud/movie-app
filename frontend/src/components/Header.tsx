@@ -52,7 +52,7 @@ const Header: React.FC = () => {
               Logout
             </button>
             <button
-              onClick={() => navigate("favorites", { replace: true })}
+              onClick={() => navigate("/favorites", { replace: true })}
               className="bg-red-500 px-4 py-2 rounded text-white"
             >
               Favorites
