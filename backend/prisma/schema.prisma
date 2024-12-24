@@ -22,9 +22,9 @@ model FavoriteMovie {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  title       String  @unique
-  releaseYear Int
-  posterImg   String?
+  title     String
+  year      String
+  posterUrl String
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
