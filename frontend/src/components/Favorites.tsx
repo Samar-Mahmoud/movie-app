@@ -62,7 +62,7 @@ const Favorites = () => {
 
   const handleSave = async (updatedMovie: Movie) => {
     try {
-      const token = localStorage.getItem('authToken');
+      const token = localStorage.getItem('user-token');
       await fetch.patch(`/favorites/${updatedMovie.id}`, updatedMovie, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -125,7 +125,7 @@ const Favorites = () => {
               <p className="mb-2">Year: {movie.year}</p>
               <div className="flex space-x-4">
                 <button
-                  onClick={() => handleEdit(movie.id)}
+                  onClick={() => handleEdit(movie)}
                   className="bg-yellow-500 text-white px-4 py-2 rounded"
                 >
                   Edit
