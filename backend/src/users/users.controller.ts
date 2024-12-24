@@ -22,6 +22,13 @@ export class UsersController {
     return await this.usersService.findById(userId);
   }
 
+  @Get('current-user')
+  async getCurrentUser(
+    @GetUser() user: { userId: User['id']; email: User['email'] },
+  ) {
+    return user;
+  }
+
   @Patch()
   async update(
     @GetUser('userId') userId: User['id'],

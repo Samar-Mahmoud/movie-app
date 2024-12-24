@@ -4,28 +4,39 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import Signup from "./components/Signup";
-import Signin from "./components/Signin";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import Favorites from "./components/Favorites";
 import MovieSearch from "./components/MovieSearch";
-import AuthForm from "./components/AuthForm";
+import Header from "./components/Header";
+import SignUp from "./components/Signup";
+import SignIn from "./components/Signin";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/auth/signup" element={<AuthForm type="Sign Up" />} />
-        <Route path="/auth/signin" element={<AuthForm type="Sign In" />} />
+        <Route path="/auth/signup" element={<SignUp />} />
+        <Route path="/auth/signin" element={<SignIn />} />
         <Route
           path="/favorites"
           element={
-            <ProtectedRoute>
+            <>
+              <Header />
               <Favorites />
-            </ProtectedRoute>
+              {/* <ProtectedRoute>
+              </ProtectedRoute> */}
+            </>
           }
         />
-        <Route path="/search" element={<MovieSearch />} />
+        <Route
+          path="/search"
+          element={
+            <>
+              <Header />
+              <MovieSearch />
+            </>
+          }
+        />
         <Route path="/" element={<Navigate to="/search" />} />
       </Routes>
     </Router>

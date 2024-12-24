@@ -31,6 +31,12 @@ export class FavoritesService {
         where: {
           userId,
         },
+        select: {
+          title: true,
+          posterUrl: true,
+          year: true,
+          id: true,
+        },
       });
     } catch {
       throw new BadRequestException(`no user with id ${userId}`);

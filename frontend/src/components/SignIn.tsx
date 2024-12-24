@@ -5,13 +5,11 @@ import { useNavigate } from "react-router-dom";
 type FormData = {
   email: string;
   password: string;
-  username: string;
 };
 
-export const AuthForm = ({ type }: { type: "Sign Up" | "Sign In" }) => {
+export const SignIn = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState<FormData>({
-    username: "",
     email: "",
     password: "",
   });
@@ -24,32 +22,6 @@ export const AuthForm = ({ type }: { type: "Sign Up" | "Sign In" }) => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
-    if (type === "Sign Up") {
-      handleSignUp();
-    } else {
-      handleSignIn();
-    }
-  };
-
-  const handleSignUp = async (): Promise<void> => {
-    const { email, password, username } = formData;
-
-    try {
-      const response = await fetch.post("auth/signup", {
-        email,
-        password,
-        username,
-      });
-      if (response.status === 201) {
-        localStorage.setItem("user-token", response.data.access_token);
-        navigate("/favorites");
-      }
-    } catch (error: any) {
-      setError(error.response?.data?.message || "Signup failed");
-    }
-  };
-
-  const handleSignIn = async (): Promise<void> => {
     const { email, password } = formData;
 
     try {
@@ -59,7 +31,7 @@ export const AuthForm = ({ type }: { type: "Sign Up" | "Sign In" }) => {
       });
       if (response.status === 201) {
         localStorage.setItem("user-token", response.data.access_token);
-        navigate("/favorites");
+        navigate("../../favorites");
       }
     } catch (error: any) {
       setError(error.response?.data?.message || "Login failed");
@@ -72,22 +44,7 @@ export const AuthForm = ({ type }: { type: "Sign Up" | "Sign In" }) => {
         className="bg-white p-6 rounded shadow-md w-96"
         onSubmit={handleSubmit}
       >
-        <h1 className="text-2xl font-bold mb-4">{type}</h1>
-        {type === "Sign Up" && (
-          <div className="mb-4">
-            <label htmlFor="username" className="block text-gray-700 mb-2">
-              Username
-            </label>
-            <input
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring"
-              id="username"
-              name="username"
-              type="username"
-              value={formData.username}
-              onChange={handleChange}
-            />
-          </div>
-        )}
+        <h1 className="text-2xl font-bold mb-4">Sign In</h1>
         <div className="mb-4">
           <label htmlFor="email" className="block text-gray-700 mb-2">
             Email
@@ -116,20 +73,20 @@ export const AuthForm = ({ type }: { type: "Sign Up" | "Sign In" }) => {
           className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
           type="submit"
         >
-          {type}
+          Sign In
         </button>
         <button
           className="w-full bg-white-500 text-blue-500 py-2 rounded mt-3"
-          onClick={() =>
-            navigate(type === "Sign In" ? "/auth/signup" : "/auth/signin")
-          }
+          onClick={() => navigate("../../auth/signup")}
         >
-          {type === "Sign In" ? "Sign Up" : "Sign In"}
+          Sign Up
         </button>
-        {error && <p className="w-full text-red-500 text-center mt-3">{error}</p>}
+        {error && (
+          <p className="w-full text-red-500 text-center mt-3">{error}</p>
+        )}
       </form>
     </div>
   );
 };
 
-export default AuthForm;
+export default SignIn;
