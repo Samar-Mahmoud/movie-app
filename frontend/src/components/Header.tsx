@@ -10,7 +10,7 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
+    const token = localStorage.getItem("user-token");
     if (!token) {
       setUser(null);
       return;
@@ -32,7 +32,7 @@ const Header: React.FC = () => {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("authToken");
+    localStorage.removeItem("user-token");
     setUser(null);
     navigate("auth/signin");
   };
@@ -52,7 +52,7 @@ const Header: React.FC = () => {
               Logout
             </button>
             <button
-              onClick={() => navigate("favorites")}
+              onClick={() => navigate("favorites", { replace: true })}
               className="bg-red-500 px-4 py-2 rounded text-white"
             >
               Favorites
@@ -61,13 +61,13 @@ const Header: React.FC = () => {
         ) : (
           <div className="flex items-center space-x-4">
             <button
-              onClick={() => navigate("../auth/signin")}
+              onClick={() => navigate("/auth/signin", { replace: true })}
               className="bg-blue-500 px-4 py-2 rounded text-white"
             >
               Sign In
             </button>
             <button
-              onClick={() => navigate("../auth/signup")}
+              onClick={() => navigate("/auth/signup", { replace: true })}
               className="bg-green-500 px-4 py-2 rounded text-white"
             >
               Sign Up
