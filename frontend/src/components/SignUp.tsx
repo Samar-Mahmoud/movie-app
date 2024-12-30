@@ -56,7 +56,7 @@ export const SignUp = () => {
             className="w-full px-3 py-2 border rounded focus:outline-none focus:ring"
             id="username"
             name="username"
-            type="username"
+            type="text"
             value={formData.username}
             onChange={handleChange}
           />
@@ -93,7 +93,7 @@ export const SignUp = () => {
         </button>
         <button
           className="w-full bg-white-500 text-blue-500 py-2 rounded mt-3"
-          onClick={() => navigate("auth/signin", { replace: true })}
+          onClick={() => navigate("/auth/signin", { replace: true })}
         >
           Sign In
         </button>

@@ -7,9 +7,8 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import { hash, verify } from 'argon2';
-import { AuthRetT } from './auth.types';
+import { AuthRetT, PayloadT } from './auth.types';
 import { LoginUserDto, CreateUserDto } from '../users/dto';
-import { User } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
@@ -54,10 +53,7 @@ export class AuthService {
     return await this.signToken({ sub: user.id, email: user.email });
   }
 
-  private async signToken(payload: {
-    sub: User['id'];
-    email: User['email'];
-  }): Promise<AuthRetT> {
+  private async signToken(payload: PayloadT): Promise<AuthRetT> {
     return {
       access_token: await this.jwtService.signAsync(payload),
     };

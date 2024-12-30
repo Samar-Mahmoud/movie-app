@@ -4,12 +4,11 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { ProtectedRoute } from "./components/ProtectedRoute";
 import Favorites from "./components/Favorites";
 import MovieSearch from "./components/MovieSearch";
 import Header from "./components/Header";
-import SignUp from "./components/Signup";
-import SignIn from "./components/Signin";
+import SignUp from "./components/SignUp";
+import SignIn from "./components/SignIn";
 
 function App() {
   return (
@@ -23,8 +22,6 @@ function App() {
             <>
               <Header />
               <Favorites />
-              {/* <ProtectedRoute>
-              </ProtectedRoute> */}
             </>
           }
         />
@@ -37,7 +34,7 @@ function App() {
             </>
           }
         />
-        <Route path="/" element={<Navigate to="/search" />} />
+        <Route path="*" element={<Navigate to="/search" />} />
       </Routes>
     </Router>
   );

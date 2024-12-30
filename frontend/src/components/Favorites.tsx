@@ -11,18 +11,16 @@ export type Movie = {
 
 const Favorites = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
-  const [message, setMessage] = useState("");
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [editMovie, setEditMovie] = useState<Movie | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const user = localStorage.getItem("current-user");
-    if (!user) {
-      navigate("auth/login", { replace: true });
+    const token = localStorage.getItem("user-token");
+    if (!token) {
+      navigate("auth/signin", { replace: true });
       return;
     }
-    const token = localStorage.getItem("user-token");
     const fetchFavorites = async () => {
       try {
         const response = await fetch.get("favorites", {
@@ -31,9 +29,6 @@ const Favorites = () => {
           },
         });
         setMovies(response.data);
-        if (response.data.length === 0) {
-          setMessage("No Favorites");
-        }
       } catch (err) {
         console.error("Error fetching favorites: ", err);
       }
